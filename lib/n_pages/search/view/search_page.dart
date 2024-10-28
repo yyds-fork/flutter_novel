@@ -90,6 +90,7 @@ class _SearchPageState extends ConsumerState<NewSearchPage> {
         style: TextStyle(
             color: theme.textTheme.bodyLarge?.color,
             fontSize: 17,
+            overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.w300),
         child: GridView.builder(
           padding: 20.padding,
@@ -129,11 +130,7 @@ class _SearchPageState extends ConsumerState<NewSearchPage> {
                 ? Text("作者：${searchEntry.author}")
                 : 0.verticalSpace,
             searchEntry.lastChapter != "" && searchEntry.lastChapter != null
-                ? Text(
-                    "最近更新：${searchEntry.lastChapter}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  )
+                ? Text("最近更新：${searchEntry.lastChapter}")
                 : 0.verticalSpace,
             Text("来源：${searchEntry.bookSourceEntry?.bookSourceName}")
           ]),
