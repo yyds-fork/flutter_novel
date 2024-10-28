@@ -37,49 +37,51 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     // final MyColorsTheme colors = Theme.of(context).extension<MyColorsTheme>()!;
-    return Container(
-        height: widget.height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(widget.borderRadius),
-            topRight: Radius.circular(widget.borderRadius),
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, -2),
-              blurRadius: 10,
-              color: Colors.black.withOpacity(0.1),
+    return SafeArea(
+      child: Container(
+          height: widget.height,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(widget.borderRadius),
+              topRight: Radius.circular(widget.borderRadius),
             ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(widget.borderRadius),
-            topRight: Radius.circular(widget.borderRadius),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, -2),
+                blurRadius: 10,
+                color: Colors.black.withOpacity(0.1),
+              ),
+            ],
           ),
-          child: BottomAppBar(
-              color: Colors.white,
-              child: SizedBox(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(widget.borderRadius),
-                    topRight: Radius.circular(widget.borderRadius),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(widget.borderRadius),
+              topRight: Radius.circular(widget.borderRadius),
+            ),
+            child: BottomAppBar(
+                color: Colors.white,
+                child: SizedBox(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(widget.borderRadius),
+                      topRight: Radius.circular(widget.borderRadius),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: widget.items.asMap().entries.map((value) {
+                          bool isSelected = value.key == widget.currentIndex;
+                          Icon icon = value.value;
+                          icon = Icon(icon.icon,
+                              color: isSelected
+                                  ? Colors.white
+                                  : Theme.of(context).primaryColor);
+                          return _buildItem(value, isSelected, icon);
+                        }).toList()),
                   ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: widget.items.asMap().entries.map((value) {
-                        bool isSelected = value.key == widget.currentIndex;
-                        Icon icon = value.value;
-                        icon = Icon(icon.icon,
-                            color: isSelected
-                                ? Colors.white
-                                : Theme.of(context).primaryColor);
-                        return _buildItem(value, isSelected, icon);
-                      }).toList()),
-                ),
-              )),
-        ));
+                )),
+          )),
+    );
   }
 
   /// 单个item
